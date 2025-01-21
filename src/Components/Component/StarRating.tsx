@@ -2,19 +2,20 @@ import React from 'react';
 
 interface StarRatingProps {
   count: number;
+  className?: string; // Optional className prop
 }
 
-const StarRating: React.FC<StarRatingProps> = ({ count }) => {
+const StarRating: React.FC<StarRatingProps> = ({ count, className }) => {
   return (
-    <div className="flex">
-      {Array.from({ length: count }, (_, index) => (
+    <div className={`flex ${className}`}>
+      {Array.from({ length: 5 }, (_, index) => (
         <svg
           key={index}
           xmlns="http://www.w3.org/2000/svg"
-          fill="currentColor"
+          fill={index < count ? "currentColor" : "none"}
           viewBox="0 0 24 24"
           stroke="currentColor"
-          className="w-6 h-6 text-yellow-300"
+          className={`w-6 h-6 text-yellow-300 ${index < count ? 'text-yellow-300' : 'text-gray-300'}`}
         >
           <path
             strokeLinecap="round"

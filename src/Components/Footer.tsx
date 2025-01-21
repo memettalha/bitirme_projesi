@@ -3,40 +3,40 @@ import {Link} from "react-router-dom"
 
 
 interface foot{
-    link:string,
+    name:string,
     path:string,
 }
 
 const footer1: (foot[]) = [
-    {link:"İletişim", path:"/Contact"},
-    {link:"Hakkımızda ", path:"/About"},
-    {link:"Sıkça Sorulan Sorular", path:"/SSS"},
-    {link:"KVKK", path:"KVKK"},
-    {link:"Çalışma İlkelerimiz", path:"ÇalışmaIlkelerimiz"},
-    {link:"Satış Sözleşmesi", path:"SatışSözleşmesi"},
-    {link:"Garanti ve İade Koşulları", path:"GarantiveIadeKoşulları"},
-    {link:"Gerçek Müşteri Yorumları", path:"GerçekMüşteriYorumları"},
-    {link:"Blog", path:"Blog"},
+    {name:"İletişim", path:"/Contact"},
+    {name:"Hakkımızda ", path:"/About"},
+    {name:"Sıkça Sorulan Sorular", path:"/SSS"},
+    {name:"KVKK", path:"KVKK"},
+    {name:"Çalışma İlkelerimiz", path:"ÇalışmaIlkelerimiz"},
+    {name:"Satış Sözleşmesi", path:"SatışSözleşmesi"},
+    {name:"Garanti ve İade Koşulları", path:"GarantiveIadeKoşulları"},
+    {name:"Gerçek Müşteri Yorumları", path:"GerçekMüşteriYorumları"},
+    {name:"Blog", path:"Blog"},
     ]
 
 const footer2: (foot[]) = [
-    {link:"PROTEİN", path:"Protein"},
-    {link:"VİTAMİNLER", path:"Vitaminler"},
-    {link:"SAĞLIK",path:"Sağlik"},
-    {link:"SPOR GIDALARI", path:"SporGidalari"},
-    {link:"GIDA", path:"Gida"},
-    {link:"TÜM ÜRÜNLER", path:"TumUrunler"},
+    {name:"PROTEİN", path:"Protein"},
+    {name:"VİTAMİNLER", path:"Vitaminler"},
+    {name:"SAĞLIK",path:"Sağlik"},
+    {name:"SPOR GIDALARI", path:"SporGidalari"},
+    {name:"GIDA", path:"Gida"},
+    {name:"TÜM ÜRÜNLER", path:"TumUrunler"},
     ]
 const footer3: (foot[]) = [
-    {link:"Whey Protein", path:"WheyProtein"},
-    {link:"Cream of Rice", path:"CreamofRice"},
-    {link:"Creatine",path:"Creatine"},
-    {link:"BCAA++", path:"BCAA++"},
-    {link:"Pre-Workout", path:"Pre-Workout"},
-    {link:"Fitness Paketi", path:"FitnessPaketi"},
-    {link:"Collegen", path:"Collegen"},
-    {link:"Günlük Vitamin Paketi", path:"GünlükVitaminPaketi"},
-    {link:"ZMA", path:"ZMA"},
+    {name:"Whey Protein", path:"WheyProtein"},
+    {name:"Cream of Rice", path:"CreamofRice"},
+    {name:"Creatine",path:"Creatine"},
+    {name:"BCAA++", path:"BCAA++"},
+    {name:"Pre-Workout", path:"Pre-Workout"},
+    {name:"Fitness Paketi", path:"FitnessPaketi"},
+    {name:"Collegen", path:"Collegen"},
+    {name:"Günlük Vitamin Paketi", path:"GünlükVitaminPaketi"},
+    {name:"ZMA", path:"ZMA"},
     ]
  
 
@@ -50,15 +50,15 @@ const Footer = () => {
          ">
         <div className="text-left">
             <img  className="mb-2 lg:w-32 lg:h-8" src={whiteLogo} alt="" />
-            <ul>{footer1.map((foot) => <li className="text-gray-400 leading-6 text-xs"><Link to={foot.path}>{foot.link}</Link></li>)}</ul>
+            <ul>{footer1.map((foot, index) => <li key={index} className="text-gray-400 leading-6 text-xs"><Link to={foot.path}>{foot.name}</Link></li>)}</ul>
         </div>
         <div className="text-left">
             <h1 className="text-white mb-2 text-lg">Kategoriler</h1>
-            <ul className="">{footer2.map((foot) => <li className="text-gray-400 leading-6 text-xs" ><Link to="">{foot.link}</Link></li>)}</ul>
+            <ul className="">{footer2.map((foot, index) => <li key={index} className="text-gray-400 leading-6 text-xs" ><Link to="">{foot.name}</Link></li>)}</ul>
         </div>
         <div className="text-left ">
             <Link to={""} className="mb-2 text-white text-lg">Popüler Ürünler</Link>
-            <ul>{footer3.map((foot) => <li className="text-gray-400 leading-6 text-xs"><Link to="">{foot.link}</Link></li>)}</ul>
+            <ul>{footer3.map((foot, index) => <li key={index} className="text-gray-400 leading-6 text-xs"><Link to="">{foot.name}</Link></li>)}</ul>
          </div>
       </div>
       <div className="flex justify-start md:justify-between lg:justify-around md:pl-8 lg:pl-0 mt-24">

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import arrow from "../../assets/Images/Icons/downArrow.png"
 import ButtonComponent from './Button';
 interface Accordion{
-  id:string;
-  title:string;
+  id:string | number;
+  title:string | JSX.Element;
   children:JSX.Element | string;
   className:string;
 }

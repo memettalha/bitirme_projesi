@@ -57,13 +57,17 @@ export interface CategoryProps{
 
 
 export async function Loader(){
-  const response = await fetch("https://fe1111.projects.academy.onlyjs.com/api/v1/products/best-sellers")
-  const json =( await response.json() as ApiResponse)
+  try {
+    const response = await fetch("https://fe1111.projects.academy.onlyjs.com/api/v1/products/best-sellers")
+    const json =( await response.json() as ApiResponse)
+  
+    const response1 = await fetch(`https://fe1111.projects.academy.onlyjs.com/api/v1/categories`)
+    const  responseJson = await response1.json();
+    return {post:json, category:responseJson.data.data}
+  } catch (error) {
+    console.log(error)
+  }
 
-  const response1 = await fetch(`https://fe1111.projects.academy.onlyjs.com/api/v1/categories`)
-  const  responseJson = await response1.json();
-  console.log(responseJson, "responseJson  buraya mı geliyor")
-  return {post:json, category:responseJson.data.data}
 }
 
 
@@ -137,8 +141,11 @@ export const products:prc[] = [{
   
 
 const Product = () => {
+
+
   const {post} = useLoaderData() as Awaited<ReturnType<typeof Loader>>
   const baseUrl = "https://fe1111.projects.academy.onlyjs.com"; // Burada API'nin temel URL'sini kullanın
+
 
   return (
     <div className="my-4">
@@ -151,7 +158,7 @@ const Product = () => {
             <div key={index} className='relative w-1/2 md:w-1/3 lg:w-1/6 p-4 text-center' >
               <div className="">
                 <img className="w-44 h-44 lg:w-44 lg:h-44 xl:w-44 xl:h-44 mx-auto "   src={`${baseUrl}${product.photo_src}`} alt="" />
-                <Link to="" className="font-bold mt-4">{product.name}</Link><br/>
+                <Link to="/ProductDetails/2" className="font-bold mt-4">{product.name}</Link><br/>
                 <p className="font-light text-b88 text-fs10">{product.short_explanation}</p>
                 <StarRating count={product.average_star} />
                 {product.price_info.discount_percentage !== null ? (

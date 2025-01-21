@@ -11,8 +11,8 @@ import AboutContent from '../Components/AboutContent'
 const AboutUs = () => {
   return (
     <div>
-        <Navbar/>
-        <AboutContent/>
+      <Navbar />
+      <AboutContent/>
          <div className="flex justify-center items-center my-4 mb-32">
             <Paginations />
         </div>

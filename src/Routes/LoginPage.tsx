@@ -4,27 +4,14 @@ import Login from "../Components/Login";
 import { SignupPage } from ".";
 import Footer from "../Components/Footer";
 import FooterAccordion from "../Components/FooterAccordion";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-type Pages = "Login" | "Signup" ;
 
 const LoginandSingUpPage = () => {
-  const [isOpen, SetIsOpen] = useState<Pages>("Login");
+  const [isOpen, SetIsOpen] = useState("true");
 
-
-const handleOpen = () => {
-  switch (isOpen) {
-    case "Login":
-     return <Login/>
-      break;
-    case "Signup":
-      return <SignupPage/>
-    default:
-      return <Login/>
-      break;
-  }
-}
-
-
+  const location = useLocation()
+  const navigate = useNavigate()
 
   return (
     <div>
@@ -32,10 +19,11 @@ const handleOpen = () => {
       <div className=" flex flex-col mt-12">
             <div className="max-w-lg mx-auto flex flex-col p-4 ">
               <div className="flex flex-row justify-center">
-                <button onClick={() => SetIsOpen("Login")} className={`border-b1 w-full py-2 flex flex-row justify-center items-center   ${isOpen=="Login"  ? ("text-[#2126ab], bg-beyazF3") : ("text-black,bg-[#FFFFFF]")}`}>Giriş Yap</button>
-                <button onClick={() => SetIsOpen("Signup")} className={`border-b1 w-full py-2 flex flex-row justify-center items-center  ${isOpen=="Signup" ? ("text-[#2126ab], bg-beyazF3") : ("text-black,bg-[#FFFFFF]")}`}>Üye Ol</button>
+                <button  onClick={() => navigate("/account/login")} className={`border-b1 w-full py-2 flex flex-row justify-center items-center   ${isOpen=="Login"  ? ("text-[#2126ab], bg-beyazF3") : ("text-black,bg-[#FFFFFF]")}`}>Giriş Yap</button>
+                <button  onClick={() => navigate("/account/register")} className={`border-b1 w-full py-2 flex flex-row justify-center items-center  ${isOpen=="Signup" ? ("text-[#2126ab], bg-beyazF3") : ("text-black,bg-[#FFFFFF]")}`}>Üye Ol</button>
               </div>
-                {handleOpen()}
+                {location.pathname === '/account/login' && <Login/>}
+                {location.pathname === '/account/register' && <SignupPage/>}
             </div>
         </div>
       <div>

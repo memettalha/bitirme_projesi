@@ -11,6 +11,8 @@ import { ProfilePage } from './Routes/profile/page';
 import { UsersPage } from './Routes/Users';
 import { UsersLoader } from './Routes/Users/loader';
 import LoginandSingUpPage from './Routes/LoginPage';
+import Login from './Components/Login';
+import { CartProvider } from './Components/Component/CartContext';
 
 const router = createBrowserRouter([
   {
@@ -33,8 +35,18 @@ const router = createBrowserRouter([
     element: <SSSPage/>
   },
   {
-    path:"Login",
-    element: <LoginandSingUpPage/>
+    path:"account",
+    element: <LoginandSingUpPage/>,
+    children : [
+      {
+        path:"login",
+        element: <Login />
+      },
+      {
+        path:"register",
+        element: <SignupPage />
+      }
+    ]
   },
   {
     path:"Singup",
@@ -68,5 +80,7 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-    <RouterProvider router={router} />
-)
+  <CartProvider> 
+  <RouterProvider router={router} />
+</CartProvider>
+);

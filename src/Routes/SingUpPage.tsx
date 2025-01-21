@@ -127,7 +127,7 @@ const SignupPage = () => {
         </button>
         <p>
           Zaten hesabınız var mı ?
-          <Link to="/Login" className="text-[#2126AB]  hover:underline ">
+          <Link to="/account/login" className="text-[#2126AB]  hover:underline ">
             Giriş Yap
           </Link>
         </p>

@@ -7,9 +7,6 @@ import guven from "../assets/Images/Navbar/guven.png";
 import { useEffect, useRef, useState } from "react";
 import searchIcon from "../assets/Images/search-icon.svg.png";
 import { IoIosArrowForward } from "react-icons/io";
-import resim from "../assets/Images/Betseller/Gunlukvitamin.png";
-import resim2 from "../assets/Images/Categories/Gida.png";
-import resim3 from "../assets/Images/Categories/tumUrunler.jpg";
 import rightarrow from "../assets/Images/Cart/rightarrow.png";
 import trash from "../assets/Images/Cart/trash.png";
 import plus from "../assets/Images/Cart/plus.png";
@@ -19,9 +16,8 @@ import { useNavigate } from "react-router-dom";
 import { useBearStore } from "../Components/counter-store";
 import ButtonComponent from "./Component/Button";
 import { BASE_URL } from "../Routes/SingUpPage";
-import { AccordionItem } from "./FooterAccordion";
-import AccordionElement from "./Component/Accordion";
 import Dropdown from "./Component/Dropdown";
+import { AddProduct } from "../Routes/ProductDetails";
 
 export interface DropdownItem {
   label: string;
@@ -36,59 +32,34 @@ export interface DropdownSection {
 
 
 
-const Navbar = () => {
+const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
+  setCartItems: React.Dispatch<React.SetStateAction<AddProduct[]>>
+}) => {
   const bears = useBearStore((state) => state.bears);
 
   const increasePopulation = useBearStore((state) => state.increasePopulation);
 
   const removeAllBears = useBearStore((state) => state.removeAllBears);
 
-  const NavItems = [
-    { link: "PROTEİN", path: "protein" },
-    { link: "SPOR GIDALARI", path: "sporGidalari" },
-    { link: "SAĞLIK", path: "Saglik" },
-    { link: "GIDA", path: "Gida" },
-    { link: "VİTAMİN", path: "Vitamin" },
-    { link: "TÜM ÜRÜNLER", path: "TümUrunler" },
-  ];
-
-  // Ürün Bilgisi
-  interface Productx {
-    id: string;
-    title: string;
-    name: string;
-    weight: number;
-    price: number;
-    image: string;
-    quantity: number;
-  }
-
-  
+ 
 
   const [isAccountOpen, setIsAccountOpen] = useState(false);
-
-  const [cart, setCart] = useState<Productx[]>([]);
   const [isCartOpen, setIsCartOpen] = useState<Boolean>(false);
   const [isNavbarOpen, setIsNavbarOpen] = useState<Boolean>(false);
-  const [cartCount, setCartCount] = useState<number>(0);
 
-  const handleIncrease = (id: string) => {
-    const updatedProducts = cart.map((product) => {
-      if (product.id === id) {
-        return { ...product, quantity: product.quantity + 1 };
-      }
-      return product;
-    });
-    setCart(updatedProducts);
+  const deleteToCart = (parameter:string) => {
+    const NewCart = cartItems.filter((item) => item.id !== parameter)
+    setCartItems(NewCart)
+  }
 
-    // Sepet sayısını güncelle
-    const newCartCount = updatedProducts.reduce(
-      (total, product) => total + product.quantity,
-      0
-    );
+ const handleIncreaseProduct = (id:string) => {
+  setCartItems((prevItems) =>
+    prevItems.map((item) =>
+    item.id === id ? {...item, quantity:item.quantity +1} : item)
+  )
+ }
 
-    setCartCount(newCartCount);
-  };
+ 
   const handleAccountToggle = () => {
     setIsAccountOpen(!isAccountOpen);
   };
@@ -100,56 +71,15 @@ const Navbar = () => {
     setIsNavbarOpen((prev) => !prev);
   };
 
-  const addToCart = () => {
-    const newProducts: Productx[] = [
-      {
-        id: nanoid(),
-        title: "Collagen",
-        name: "Ahudu",
-        weight: 450,
-        price: 499,
-        image: resim,
-        quantity: 1,
-      },
-      {
-        id: nanoid(),
-        title: "Vitamin",
-        name: "Çilek",
-        weight: 900,
-        price: 700,
-        image: resim2,
-        quantity: 1,
-      },
-      {
-        id: nanoid(),
-        title: "Gıda",
-        name: "Çilek",
-        weight: 900,
-        price: 700,
-        image: resim3,
-        quantity: 1,
-      },
-    ];
-    const updatedCart: Productx[] = [...cart, ...newProducts];
-    setCart(updatedCart);
+ 
+  const calculateTotalPrice = (items:AddProduct[]) => {
+      if(!items ||items.length === 0){
+        return 0
+      }
+        return items.reduce((total,item) => total + item.price * item.quantity, 0)
 
-    const newCartCount = updatedCart.reduce(
-      (total, product) => total + product.quantity,
-      0
-    );
-    setCartCount(newCartCount);
-  };
-  const deleteToCart = (urunId: string) => {
-    const newCart = cart.filter((urun) => urun.id !== urunId);
-    setCart(newCart);
-
-    // Sepet sayısını güncelle
-    const newCartCount = newCart.reduce(
-      (total, product) => total + product.quantity,
-      0
-    );
-    setCartCount(newCartCount);
-  };
+  }
+  const totalPrice = calculateTotalPrice(cartItems)
 
   const sections: DropdownSection[] = [
     {
@@ -187,45 +117,9 @@ const Navbar = () => {
   ];
   const navbarRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleNavbarClick = (event: MouseEvent) => {
-      if (
-        navbarRef.current &&
-        !navbarRef.current.contains(event.target as Node)
-      ) {
-        setIsNavbarOpen(false);
-      }
-    };
-
-    if (isNavbarOpen) {
-      document.addEventListener("mousedown", handleNavbarClick);
-    } else {
-      document.removeEventListener("mousedown", handleNavbarClick);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleNavbarClick);
-    };
-  }, [isNavbarOpen]);
 
   // useRef ile  sepet menüsünü açılır kapanır hale getirme
   const cartRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (
-        cartRef.current &&
-        !cartRef.current.contains(event.target as HTMLDivElement)
-      ) {
-        setIsCartOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleOutsideClick);
-    return () => {
-      document.removeEventListener("mousedown", handleOutsideClick);
-    };
-  }, []);
 
   //Product Details için query string etiketi
   const navigate = useNavigate();
@@ -235,9 +129,27 @@ const Navbar = () => {
     navigate(`/ProductList/${categoryId}`);
   };
 
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      const isNavbarOpen = navbarRef.current && navbarRef.current.contains(event.target as Node);
+      const isCartOpen = cartRef.current && cartRef.current.contains(event.target as HTMLDivElement);
+  
+      if (!isNavbarOpen && !isCartOpen) {
+        // Neither navbar nor cart is open, close both
+        setIsNavbarOpen(false);
+        setIsCartOpen(false);
+      }
+    };
+  
+    document.addEventListener("mousedown", handleOutsideClick);
+  
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [navbarRef, cartRef, setIsNavbarOpen, setIsCartOpen]);
 
   return (
-    <div className="w-full">
+    <div className="w-full sticky top-0 z-50 bg-white">
       <nav className="border-gray-200  w-12/12 mx-auto">
         {/*Web Bölümü*/}
         <div className="hidden w-full md:max-w-4xl lg:max-w-5xl xl:max-w-7xl  mx-auto md:flex flex-wrap items-center justify-between lg:justify-around py-4">
@@ -282,18 +194,17 @@ const Navbar = () => {
                 </button>
                 {isAccountOpen ? (
                   <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 flex flex-col items-center justify-center text-center">
-                    <a
-                      href="#"
+                    <Link to="/account/login"
                       className="block py-2 px-4 text-blue-500 hover:bg-slate-200"
                     >
                       ÜYE GİRİŞİ
-                    </a>
-                    <a
-                      href="#"
+                    </Link>
+                    <Link
+                      to="/account/register"
                       className="block py-2 px-4 text-blue-500  hover:bg-slate-200"
                     >
                       ÜYE OL
-                    </a>
+                    </Link>
                   </div>
                 ) : (
                   ""
@@ -308,7 +219,7 @@ const Navbar = () => {
                     className="bg-kirmizi rounded-full text-xs w-4 h-4 flex items-center justify-center"
                     style={{ position: "absolute", top: "3px", right: "100px" }}
                   >
-                    {cart.length}
+                    {cartItems && cartItems.length}
                   </span>
                   <FaShoppingCart className="w-6 h-6" />
                   <span className="ml-3 text-xs">SEPET</span>
@@ -327,12 +238,12 @@ const Navbar = () => {
                     <div className="bg-beyazF7 h-96">
                       <div className="productx">
                         <ul>
-                          {cart.length === 0 ? (
+                          {cartItems && cartItems.length === 0 ? (
                             <li className="flex justify-center items-center text-center">
                               Sepetinizde Ürün Bulunmamaktadır
                             </li>
                           ) : (
-                            cart.map((item, index) => (
+                            cartItems.map((item, index) => (
                               <li
                                 key={index}
                                 className="flex py-4 border-b bg-beyazF7 "
@@ -367,7 +278,7 @@ const Navbar = () => {
                                         <p className="w-16">{item.quantity}</p>
                                         <button
                                           onClick={() =>
-                                            handleIncrease(item.id)
+                                            handleIncreaseProduct(item.id)
                                           }
                                           className="w-8"
                                         >
@@ -388,7 +299,7 @@ const Navbar = () => {
                         <li></li>
                       </ul>
                       <p className="ml-auto font-bold mb-2 mx-10">
-                        TOPLAM 499 TL
+                        TOPLAM {totalPrice} TL
                       </p>
                       <button className="flex flex-row mx-10 max-w-lg h-16 text-center justify-center items-center bg-black text-white rounded-md">
                         <span className="text-lg mr-3">DEVAM ET</span>{" "}
@@ -525,13 +436,13 @@ const Navbar = () => {
             </div>
             <div className="bg-beyazF7 h-96">
               <div className="productx">
-                <ul>
-                  {cart.length === 0 ? (
+                <ul className="overflow-y-auto h-96">
+                  {cartItems.length === 0 ? (
                     <li className="flex justify-center items-center text-center">
                       Sepetinizde Ürün Bulunmamaktadır
                     </li>
                   ) : (
-                    cart.map((item, index) => (
+                    cartItems.map((item, index) => (
                       <li
                         key={index}
                         className="flex py-4 border-b bg-beyazF7 "
@@ -565,7 +476,7 @@ const Navbar = () => {
                                 </button>
                                 <p className="w-16">{item.quantity}</p>
                                 <button
-                                  onClick={() => handleIncrease(item.id)}
+                                  onClick={() => handleIncreaseProduct(item.id)}
                                   className="w-8"
                                 >
                                   <img src={plus} alt="" />
@@ -581,7 +492,7 @@ const Navbar = () => {
               </div>
             </div>
             <div className="flex flex-col bg-white mb-12">
-              <p className="ml-auto font-bold mb-2 mx-10">TOPLAM 499 TL</p>
+              <p className="ml-auto font-bold mb-2 mx-10">TOPLAM {totalPrice} TL</p>
               <Link
                 to="/OldOrder"
                 className="flex flex-row mx-10 max-w-lg h-16 text-center justify-center items-center bg-black text-white rounded-md"

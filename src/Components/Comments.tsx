@@ -62,7 +62,6 @@ const comment4 =  [
 
 
 const comments = [...comment1,...comment2,...comment3,...comment4]
-console.log(comments)  
 
 const Comments = () => {
   return (
@@ -72,9 +71,9 @@ const Comments = () => {
               <h1 className="ml-4">GERÇEK MÜŞTERİ YORUMLARI</h1>
               <div className="flex flex-row">
                 <p>⭐⭐⭐⭐⭐</p>
-                <p className="underline ml-2" style={{color:"#6A6C77"}}>198453{} Yorum</p>
-                <button className="swiper-button-prev ml-2"><img src={previous} alt="" /></button>
-                <button className="swiper-button-next"><img src={next} alt="" /></button>
+                <p className="underline ml-2" style={{color:"#6A6C77"}}>{comments.length} Yorum</p>
+                <button className="swiper-button-prev ml-2"><img src={previous} alt="previous" /></button>
+                <button className="swiper-button-next"><img src={next} alt="next" /></button>
               </div>
             </div>
             <Swiper  breakpoints={{
@@ -91,7 +90,10 @@ const Comments = () => {
             pagination={{
               clickable:true
             }}
-            navigation={true}
+            navigation={{
+              nextEl:".swiper-button-next",
+              prevEl:".swiper-button-prev"
+            }}
             modules={[FreeMode,Pagination,Navigation]}
             >
             <div className="flex flex-row">{comments.map((comment,index) => (

@@ -221,13 +221,13 @@ const ProductList = () => {
                       </h1>
                     )}
                   </div>
-                  <div>
-                    <StarRating count={product.average_star} />
+                  <div className="">
+                    <StarRating count={product.average_star} className="d-flex justify-center align-center" />
                     <h1>
                       {product.comment_count !== 0 ? (
                         `${product.comment_count} Yorum`
                       ) : (
-                        <br />
+                        <p>0 Yorum</p>
                       )}
                     </h1>
                     <div className="flex flex-row justify-center items-end ">
