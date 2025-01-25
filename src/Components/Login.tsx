@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { BASE_URL } from "../Routes/SingUpPage";
+import { BASE_URL } from "../LoginAndSignup/SingUpPage";
 import { setTokensAndAuthUser } from "../Services/api/storage";
 import ButtonComponent from "./Component/Button";
 

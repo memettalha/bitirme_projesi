@@ -1,4 +1,4 @@
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/Component/Navbar/Navbar";
 import Footer from "../Components/Footer";
 import FooterAccordion from "../Components/FooterAccordion";
 import EskiSiparis from "../Components/EskiSiparis";

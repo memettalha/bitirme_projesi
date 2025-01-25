@@ -1,23 +1,15 @@
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineAccountBox, MdArrowDropDown } from "react-icons/md";
 import { FaShoppingCart } from "react-icons/fa";
-import LogoSiyah from "../assets/Images/LOGO_Siyah.png";
-import koli from "../assets/Images/Navbar/koli.png";
-import smileMan from "../assets/Images/Navbar/smileMan.png";
-import guven from "../assets/Images/Navbar/guven.png";
-import { useEffect, useRef, useState } from "react";
-import searchIcon from "../assets/Images/search-icon.svg.png";
+import { LogoSiyah, koli, smileMan, guven, rightarrow, trash, plus, searchIcon } from ".";
 import { IoIosArrowForward } from "react-icons/io";
-import rightarrow from "../assets/Images/Cart/rightarrow.png";
-import trash from "../assets/Images/Cart/trash.png";
-import plus from "../assets/Images/Cart/plus.png";
+import { useNavigate,Link } from "react-router-dom";
+import { useBearStore } from "../../counter-store";
+import ButtonComponent from "../Button";
+import { BASE_URL } from "../../../LoginAndSignup/SingUpPage";
 import { nanoid } from "nanoid";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { useBearStore } from "../Components/counter-store";
-import ButtonComponent from "./Component/Button";
-import { BASE_URL } from "../Routes/SingUpPage";
-import Dropdown from "./Component/Dropdown";
-import { AddProduct } from "../Routes/ProductDetails";
+import Dropdown from "../Dropdown";
+import { AddProduct } from "../../../Product Details/ProductDetails";
 
 export interface DropdownItem {
   label: string;
@@ -30,10 +22,12 @@ export interface DropdownSection {
   items: DropdownItem[];
 }
 
-
-
-const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
-  setCartItems: React.Dispatch<React.SetStateAction<AddProduct[]>>
+const Navbar = ({
+  cartItems,
+  setCartItems,
+}: {
+  cartItems: AddProduct[];
+  setCartItems: React.Dispatch<React.SetStateAction<AddProduct[]>>;
 }) => {
   const bears = useBearStore((state) => state.bears);
 
@@ -41,25 +35,23 @@ const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
 
   const removeAllBears = useBearStore((state) => state.removeAllBears);
 
- 
-
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState<Boolean>(false);
   const [isNavbarOpen, setIsNavbarOpen] = useState<Boolean>(false);
 
-  const deleteToCart = (parameter:string) => {
-    const NewCart = cartItems.filter((item) => item.id !== parameter)
-    setCartItems(NewCart)
-  }
+  const deleteToCart = (parameter: string) => {
+    const NewCart = cartItems.filter((item) => item.id !== parameter);
+    setCartItems(NewCart);
+  };
 
- const handleIncreaseProduct = (id:string) => {
-  setCartItems((prevItems) =>
-    prevItems.map((item) =>
-    item.id === id ? {...item, quantity:item.quantity +1} : item)
-  )
- }
+  const handleIncreaseProduct = (id: string) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
+      )
+    );
+  };
 
- 
   const handleAccountToggle = () => {
     setIsAccountOpen(!isAccountOpen);
   };
@@ -71,15 +63,13 @@ const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
     setIsNavbarOpen((prev) => !prev);
   };
 
- 
-  const calculateTotalPrice = (items:AddProduct[]) => {
-      if(!items ||items.length === 0){
-        return 0
-      }
-        return items.reduce((total,item) => total + item.price * item.quantity, 0)
-
-  }
-  const totalPrice = calculateTotalPrice(cartItems)
+  const calculateTotalPrice = (items: AddProduct[]) => {
+    if (!items || items.length === 0) {
+      return 0;
+    }
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+  };
+  const totalPrice = calculateTotalPrice(cartItems);
 
   const sections: DropdownSection[] = [
     {
@@ -117,7 +107,6 @@ const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
   ];
   const navbarRef = useRef<HTMLDivElement>(null);
 
-
   // useRef ile  sepet menüsünü açılır kapanır hale getirme
   const cartRef = useRef<HTMLDivElement>(null);
 
@@ -131,18 +120,21 @@ const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      const isNavbarOpen = navbarRef.current && navbarRef.current.contains(event.target as Node);
-      const isCartOpen = cartRef.current && cartRef.current.contains(event.target as HTMLDivElement);
-  
+      const isNavbarOpen =
+        navbarRef.current && navbarRef.current.contains(event.target as Node);
+      const isCartOpen =
+        cartRef.current &&
+        cartRef.current.contains(event.target as HTMLDivElement);
+
       if (!isNavbarOpen && !isCartOpen) {
         // Neither navbar nor cart is open, close both
         setIsNavbarOpen(false);
         setIsCartOpen(false);
       }
     };
-  
+
     document.addEventListener("mousedown", handleOutsideClick);
-  
+
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
@@ -194,7 +186,8 @@ const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
                 </button>
                 {isAccountOpen ? (
                   <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-10 flex flex-col items-center justify-center text-center">
-                    <Link to="/account/login"
+                    <Link
+                      to="/account/login"
                       className="block py-2 px-4 text-blue-500 hover:bg-slate-200"
                     >
                       ÜYE GİRİŞİ
@@ -492,7 +485,9 @@ const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
               </div>
             </div>
             <div className="flex flex-col bg-white mb-12">
-              <p className="ml-auto font-bold mb-2 mx-10">TOPLAM {totalPrice} TL</p>
+              <p className="ml-auto font-bold mb-2 mx-10">
+                TOPLAM {totalPrice} TL
+              </p>
               <Link
                 to="/OldOrder"
                 className="flex flex-row mx-10 max-w-lg h-16 text-center justify-center items-center bg-black text-white rounded-md"
@@ -561,9 +556,7 @@ const Navbar = ({cartItems, setCartItems}:{cartItems:AddProduct[],
           <Dropdown
             title="TÜM ÜRÜNLER"
             sections={sections}
-            handleClick={(event) =>
-              handleCategoryClick("all")
-            }
+            handleClick={(event) => handleCategoryClick("all")}
           />
         </div>
       </div>

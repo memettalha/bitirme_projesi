@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import Navbar from '../Components/Navbar'
+import Navbar from './Component/Navbar/Navbar'
 import Footer from "../Components/Footer"
 import Accordion from '../Components/FooterAccordion'
 import { useState } from 'react'

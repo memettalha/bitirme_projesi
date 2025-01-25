@@ -1,16 +1,13 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import Home from './App';
+import Home from './Home'
 import {createBrowserRouter,RouterProvider,} from "react-router-dom";
-import { LoginPage,ProductList,ContactPage,SSSPage, SignupPage,AccountPage, AboutUs, OldOrder,category} from './Routes';
-import ProductDetails from "./Routes/ProductDetails"
-import PaymentPage from './Routes/PaymentPage.js';
+import {ProductList,ContactPage,SSSPage, SignupPage,AccountPage, AboutUs, OldOrder,PaymentPage,LoginandSingUpPage,category} from './Routes';
+import ProductDetails from "./Product Details/ProductDetails"
 import { betseller } from './Routes';
 import { ProfilePage } from './Routes/profile/page';
 import { UsersPage } from './Routes/Users';
 import { UsersLoader } from './Routes/Users/loader';
-import LoginandSingUpPage from './Routes/LoginPage';
 import Login from './Components/Login';
 import { CartProvider } from './Components/Component/CartContext';
 
@@ -28,7 +25,6 @@ const router = createBrowserRouter([
   {
     path:"Contact",
     element: <ContactPage/>
-
   },  
   {
     path:"SSS",

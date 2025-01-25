@@ -1,6 +1,6 @@
 // CartContext.tsx
 import React, { createContext, useContext, useState } from 'react';
-import { AddProduct } from '../../Routes/ProductDetails';
+import { AddProduct } from '../../Product Details/ProductDetails';
 import { nanoid } from 'nanoid';
 
 interface CartContextType {

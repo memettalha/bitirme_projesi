@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css';
 
-/*Telefon inputunun içine bayrak eklemek için react-phone-input-2 import ettim*/
-/* PhoneInput adında style component ekledim */
-/* Phone useStatetini PhoneInputtaki value değerinin değiştirmek için kullandım */
+
 
 
 const AccountInfo = () => {

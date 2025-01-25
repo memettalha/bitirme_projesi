@@ -1,5 +1,5 @@
 import './App.css'
-import Navbar from './Components/Navbar'
+import Navbar from './Components/Component/Navbar/Navbar'
 import MainSection from './Components/MainSection'
 import Product from './Components/Betseller'
 import Ojs from './Components/Ojs'
@@ -13,7 +13,6 @@ import { useState } from 'react'
 
 function Home() {
  
-
 
 
   return (

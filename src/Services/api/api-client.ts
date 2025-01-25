@@ -1,4 +1,4 @@
-import { BASE_URL } from "../../Routes/SingUpPage"
+import { BASE_URL } from "../../LoginAndSignup/SingUpPage"
 
 interface TokenPayload {
   sub: number;

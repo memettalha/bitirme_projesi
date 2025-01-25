@@ -152,7 +152,7 @@ const Product = () => {
       <div className="flex justify-center items-center">
          <h1 className="mb-4 mt-3 font-semibold text-[22px]">ÇOK SATANLAR</h1>
       </div>
-      <div className="flex items-center justify-center mx-auto">
+      <div className="flex items-center justify-center text-center mx-auto">
       <div className="flex flex-wrap max-w-sm md:max-w-2xl lg:max-w-4xl xl:max-w-6xl">
       {post.data.map((product: Product, index: number) => (
             <div key={index} className='relative w-1/2 md:w-1/3 lg:w-1/6 p-4 text-center' >
@@ -160,7 +160,9 @@ const Product = () => {
                 <img className="w-44 h-44 lg:w-44 lg:h-44 xl:w-44 xl:h-44 mx-auto "   src={`${baseUrl}${product.photo_src}`} alt="" />
                 <Link to="/ProductDetails/2" className="font-bold mt-4">{product.name}</Link><br/>
                 <p className="font-light text-b88 text-fs10">{product.short_explanation}</p>
-                <StarRating count={product.average_star} />
+                <div className="pl-6">
+                  <StarRating count={product.average_star} />
+                </div>
                 {product.price_info.discount_percentage !== null ? (
                   <p className="absolute  top-0 right-2 text-xs text-white p-1 " style={{ background: "#ED2727" }}>
                     <span className="text-xl text-white">%{product.price_info.discount_percentage} <br/></span> İNDİRİM

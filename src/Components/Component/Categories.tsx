@@ -1,5 +1,5 @@
 import React from 'react'
-import { BASE_URL } from '../../Routes/SingUpPage'
+import { BASE_URL } from '../../LoginAndSignup/SingUpPage'
 
 const Categories = () => {
 

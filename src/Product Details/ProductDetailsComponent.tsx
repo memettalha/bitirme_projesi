@@ -1,142 +1,24 @@
 import { useEffect, useState } from "react";
-import Product, {products} from "../Betseller";
-import Rating from "../Rating";
-import cart from "../../assets/Images/ProductList/cart.png"
-import AccordionElement from "./Accordion";
-import truck from "../../assets/Images/ProductList/truck.png";
-import safe from "../../assets/Images/ProductList/safe.png";
-import hundred from "../../assets/Images/ProductList/hundred.png";
+import Product, {products} from "../Components/Betseller";
+import Rating from "../Components/Rating";
+import cart from "../assets/Images/ProductList/cart.png"
+import AccordionElement from "../Components/Component/Accordion";
+import truck from "../assets/Images/ProductList/truck.png";
+import safe from "../assets/Images/ProductList/safe.png";
+import hundred from "../assets/Images/ProductList/hundred.png";
 import { useParams } from "react-router-dom";
 import { nanoid } from "nanoid";
-import trash from "../../assets/Images/Cart/trash.png";
-import plus from "../../assets/Images/Cart/plus.png";
-import { AddProduct } from "../../Routes/ProductDetails";
+import trash from "../assets/Images/Cart/trash.png";
+import plus from "../assets/Images/Cart/plus.png";
+import { AddProduct } from "./ProductDetails";
+import { ProductDetails } from "./Product";
+import { newProducts , Variant, Ingredient,NutritionFact,AminoAcidFact  } from "./Product";
 
 const ProductDetailsComponent = ({cartItems, setCartItems }:{cartItems:AddProduct[],
     setCartItems: React.Dispatch<React.SetStateAction<AddProduct[]>>
 }) => {
 
-
-  interface Product {
-    status: "success";
-    data: ProductData;
-  }
-
-  interface ProductData {
-    id: string;
-    name: string;
-    slug: string;
-    short_explanation: string;
-    explanation: Explanation;
-    main_category_id: string;
-    sub_category_id: string;
-    tags: string[];
-    variants: Variant[];
-    comment_count: number;
-    average_star: number;
-  }
-
-  interface Explanation {
-    usage: string;
-    features: string;
-    description: string;
-    nutritional_content: NutritionalContent;
-  }
-
-  interface NutritionalContent {
-    ingredients: Ingredient[];
-    nutrition_facts: NutritionFact[];
-    amino_acid_facts: AminoAcidFact[];
-  }
-
-  interface Ingredient {
-    aroma: string;
-    value: string;
-  }
-
-  interface NutritionFact {
-    ingredients: IngredientNutrition[];
-    portion_sizes: string[];
-  }
-
-  interface IngredientNutrition {
-    name:string;
-    amounts: string[];
-  }
-
-  interface AminoAcidFact {
-    portion_sizes: string[];
-    ingredients: IngredientAroma[]
-  }
-
-  interface IngredientAroma{
-    name:string;
-    amounts: string[];
-  }
-
-  interface Variant {
-    id: string;
-    size: {
-      gram: number;
-      pieces: number;
-      total_services: number;
-    };
-    aroma: string;
-    price: {
-      profit: number;
-      total_price: number;
-      discounted_price: number;
-      price_per_servings: number;
-      discount_percentage: number;
-    };
-    photo_src: string;
-    is_available: boolean;
-  }
-
-  interface Size {
-    gram: number;
-    pieces: number;
-    total_services: number;
-  }
-
-
-  interface clr {
-    id: number;
-    color: string;
-  }
-
-  interface newProducts {
-    name: string;
-    photo: JSX.Element[] | undefined;
-    shortExplanation: string | undefined;
-  }
-
-
-  const colors: clr[] = [
-    { id: 0, color: "bg-[#B64300]" },
-    { id: 1, color: "bg-[#7B3F00]" },
-    { id: 2, color: "bg-[#BA9051]" },
-    { id: 3, color: "bg-[#F1D018]" },
-    { id: 4, color: "bg-[#B64300]" },
-    { id: 5, color: "bg-[#7B3F00]" },
-    { id: 6, color: "bg-[#BA9051]" },
-    { id: 7, color: "bg-[#D61F33]" },
-  ];
-  type ColorDetails =
-    | "zero"
-    | "one"
-    | "two"
-    | "three"
-    | "four"
-    | "five"
-    | "six"
-    | "seven";
-
-  const [isColor, setIsColor] = useState<ColorDetails>("zero");
-
   const [sayi, setsayi] = useState<number>(0);
-
-
   const handleAddCart = () => {
       if(product && variants && sayi >= 0){
         const newProduct : AddProduct = {
@@ -164,7 +46,6 @@ const ProductDetailsComponent = ({cartItems, setCartItems }:{cartItems:AddProduc
   )
  }
 
-
   const handleIncrease = () => {
     setsayi(sayi + 1);
   };
@@ -174,7 +55,7 @@ const ProductDetailsComponent = ({cartItems, setCartItems }:{cartItems:AddProduc
   };
 
   const { id } = useParams<{ id: string }>();
-  const [product, setProduct] = useState<Product | null>(null);
+  const [product, setProduct] = useState<ProductDetails | null>(null);
   const [loading, setLoading] = useState(true);
   const [productList, setProductList] = useState<newProducts[]>([]);
 
@@ -182,7 +63,6 @@ const ProductDetailsComponent = ({cartItems, setCartItems }:{cartItems:AddProduc
   const [productPhoto, setPhoto] = useState<any>("");
   const [shortExplanation, setShortExplanation] = useState<string>("");
   const [price, setPrice] = useState<number>(0);
-
   const [productUsage, setUsages] = useState<string>("");
   const [productFeatures, setFeatures] = useState<string>("");
   const [productDescription, setProductDescription] = useState<string>("");
@@ -208,8 +88,6 @@ const ProductDetailsComponent = ({cartItems, setCartItems }:{cartItems:AddProduc
     console.log("newProduct", newProduct);
     setProductList([...productList, newProduct]);
   };
-
- 
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -497,7 +375,6 @@ const ProductDetailsComponent = ({cartItems, setCartItems }:{cartItems:AddProduc
                         )
                       )}
 
-
                       <table>
                         <tr>
                           <th>AMİNO ASİT DEĞERLERİ</th>
@@ -757,5 +634,4 @@ const ProductDetailsComponent = ({cartItems, setCartItems }:{cartItems:AddProduc
     </div>
   );
 };
-
 export default ProductDetailsComponent;

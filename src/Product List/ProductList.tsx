@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "../Components/Navbar";
+import Navbar from "../Components/Component/Navbar/Navbar";
 import Footer from "../Components/Footer";
 import Accordion from "../Components/FooterAccordion";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import StarRating from "../Components/Component/StarRating";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { create } from "zustand";
-import { category } from ".";
+import { category } from "../Routes";
 
 export interface PriceInfo {
   profit: number | null;
@@ -122,10 +122,7 @@ const ProductList = () => {
     fetchData();
   }, [categoryId, page]);
 
-  const handleCategoryClick = (categoryId: string) => {
-    setSelectedCategoryId(categoryId);
-    navigate(`/ProductList/${categoryId}`); // Kategoriye göre yönlendirme
-  };
+
 
   useEffect(() => {
     const fetchData = async () => {

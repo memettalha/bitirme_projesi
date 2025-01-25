@@ -1,12 +1,14 @@
-export {default as ProductDetails} from "../Routes/ProductDetails"
-export {default as ContactPage} from "./ContactPage"
-export {default as SSSPage} from "./SSS"
-export {default as LoginPage} from "./LoginPage"
-export {default as SignupPage} from "./SingUpPage"
-export {default as AccountPage} from "./AccountPage"
-export {default as AboutUs} from "./AboutUs"
-export {default as OldOrder} from "./OldOrder"
-export {default as ProductList} from "./ProductList"
+export {default as ProductDetails} from "../Product Details/ProductDetails"
+export {default as ContactPage} from "../Contact/ContactPage"
+export {default as SSSPage} from "../SSS/SSS"
+export {default as LoginandSingUpPage} from "../LoginAndSignup/LoginandSingUpPage"
+export {default as SignupPage} from "../LoginAndSignup/SingUpPage"
+export {default as AccountPage} from "../LoginAndSignup/AccountPage"
+export {default as AboutUs} from "../About/AboutUs"
+export {default as OldOrder} from "../Old Order/OldOrder"
+export {default as ProductList} from "../Product List/ProductList"
+export {default as PaymentPage} from "../Payment/PaymentPage"
+
 
 
 
@@ -38,7 +40,7 @@ export {default as smile}  from "../assets/Images/Navbar/smileMan.png";
 
 //Loader
 export {Loader as betseller} from "../Components/Betseller"
-export {Loader as category} from "../Routes/ProductList"
+export {Loader as category} from "../Product List/ProductList"
 
 
 

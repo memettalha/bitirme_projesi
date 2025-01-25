@@ -1,8 +1,7 @@
 import React from 'react'
-import Navbar from "../Components/Navbar"
+import Navbar from "../Components/Component/Navbar/Navbar"
 import Paginations from '../Components/Pagination'
 import Footer from '../Components/Footer'
-import FooterTop from '../Components/FooterTop'
 import FooterAccordion from '../Components/FooterAccordion'
 import AboutContent from '../Components/AboutContent'
 

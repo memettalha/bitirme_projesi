@@ -9,7 +9,6 @@ import { useLoaderData } from "react-router-dom";
 import { CategoryProps } from "./Betseller";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ButtonComponent from "./Component/Button";
 import { Link } from "react-router-dom";
 
 interface product {
@@ -23,8 +22,11 @@ const productsCard = async () => {
   const response = await fetch(
     `https://fe1111.projects.academy.onlyjs.com/api/v1/categories`
   );
-  const product = await response.json();
+  const responseJson = await response.json();
+  console.log(responseJson);
 };
+
+productsCard();
 
 const MainSection = () => {
   const [SelectedCategoryId, setSelectedCategoryId] = useState<string | null>(
@@ -36,13 +38,6 @@ const MainSection = () => {
     setSelectedCategoryId(categoryId);
     navigate(`/ProductList/${categoryId}`); // Kategoriye göre yönlendirme
   };
-
-  const proteinParams = "38fb5754-3068-4490-a12a-169fa564c675";
-  const vitaminParams = "d3cdcefe-eedd-4ee0-a254-b821ed4e2b8c";
-  const saglikParams = "cae64711-98b9-48f4-82b4-c5d460718dcf";
-  const sporParams = "8eaeff30-3138-49ac-b120-0eac18866190";
-  const gidaParams = "cae64711-98b9-48f4-82b4-c5d460718dcf";
-  const allParams = "all";
 
   const { category } = useLoaderData() as { category: CategoryProps[] };
   const products: product[] = [
@@ -96,7 +91,7 @@ const MainSection = () => {
                 <Link
                   to={product.path}
                   className={
-                    "absolute bottom-8 right-12 text-xs text-center  md:text-sm w-16 sm:w-20 lg:w-28 xl:w-36 h-4 font-black bg-[#222222] text-white rounded-full md:w-24 md:h-7 md:right-8 lg:right-8 lg:rounded-lg lg:h-8 xl:right-6"
+                    "absolute bottom-8 right-12 text-center  md:text-sm  sm:w-20 lg:w-28 xl:w-36 h-4 font-black bg-[#222222] text-white rounded-full md:w-24 md:h-7 md:right-8 lg:right-8 lg:rounded-lg "
                   }
                 >
                   İNCELE
@@ -114,7 +109,8 @@ const MainSection = () => {
             <div className="w-20 h-12 flex items-center justify-center text-sm md:text-lg font-black absolute top-8 right-8 md:right-8 md:top-10 lg:right-16 lg:top-12 lg:text-3xl">
               <span className="">{products[5].name}</span>
             </div>
-            <Link to=""
+            <Link
+              to=""
               className={
                 "absolute bottom-8 right-12 text-xs text-center  md:text-sm w-16 sm:w-20 lg:w-28 xl:w-36 h-4 font-black bg-[#222222] text-white rounded-full md:w-24 md:h-7 md:right-8 lg:right-8 lg:rounded-lg lg:h-8 xl:right-6"
               }

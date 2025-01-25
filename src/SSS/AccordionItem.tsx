@@ -1,4 +1,4 @@
-import plus from "../../assets/Images/Icons/plus2.png";
+import plus from "../assets/Images/Icons/plus2.png";
 import { useState } from "react";
 
 interface Accordion {

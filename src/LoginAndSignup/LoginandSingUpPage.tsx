@@ -1,7 +1,7 @@
 import { useState } from "react"
-import Navbar from "../Components/Navbar"
+import Navbar from "../Components/Component/Navbar/Navbar"
 import Login from "../Components/Login";
-import { SignupPage } from ".";
+import { SignupPage } from "../Routes";
 import Footer from "../Components/Footer";
 import FooterAccordion from "../Components/FooterAccordion";
 import { Link, useLocation, useNavigate } from "react-router-dom";

@@ -1,5 +1,5 @@
 import { fetchWithAuth } from "../../Services/api/api-client";
-import { BASE_URL } from "../SingUpPage";
+import { BASE_URL } from "../../LoginAndSignup/SingUpPage";
 
 export interface User {
   email: string;

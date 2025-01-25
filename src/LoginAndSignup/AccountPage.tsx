@@ -1,5 +1,4 @@
-import React from 'react'
-import Navbar from '../Components/Navbar'
+import Navbar from '../Components/Component/Navbar/Navbar'
 import Account from '../Components/Account'
 import Footer from "../Components/Footer"
 import FooterAccordion from "../Components/FooterAccordion"
